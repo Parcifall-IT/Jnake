@@ -1,0 +1,19 @@
+class Main {
+
+    function void main () {
+        var Camera camera;
+        var boolean restart;
+        let camera = Camera.init(1);
+        let restart = camera.move();
+        while(restart) {
+        
+            let restart = false;
+            //do camera.dispose();
+            //let camera = Camera.init(1);
+            //do Screen.clearScreen();
+            let restart = camera.move();
+            do Sys.wait(500);
+        }
+        return;
+    }
+}

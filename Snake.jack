@@ -1,0 +1,29 @@
+class Snake {
+
+    function Block init(int length) {
+        var Block snake;
+        let snake = Block.new(100, 100);
+        do Block.Draw(snake);
+        
+        return snake;
+    }
+
+    function Block MoveSnake(Block snake, int direction) {
+        var int x, y;
+        let x = snake.GetCoord(true);
+        let y = snake.GetCoord(false);
+        if(direction = 0) { let x = x - 10; }
+        if(direction = 1) { let y = y - 10; }
+        if(direction = 2) { let x = x + 10; }
+        if(direction = 3) { let y = y + 10; }
+        let snake = snake.ChangeCoords(x, y);
+        do Block.Draw(snake);
+
+        return snake;
+    }
+
+    function void dispose(Block snake) {
+        do Block.dispose(snake);
+        return;
+    }
+}

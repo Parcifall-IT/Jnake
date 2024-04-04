@@ -1,0 +1,80 @@
+function Snake.init 1
+push constant 100
+push constant 100
+call Block.new 2
+pop local 0
+push local 0
+call Block.Draw 1
+pop temp 0
+push local 0
+return
+function Snake.MoveSnake 2
+push argument 0
+push constant 0
+not
+call Block.GetCoord 2
+pop local 0
+push argument 0
+push constant 0
+call Block.GetCoord 2
+pop local 1
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 10
+sub
+pop local 0
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+push constant 10
+sub
+pop local 1
+label IF_FALSE1
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 0
+push constant 10
+add
+pop local 0
+label IF_FALSE2
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 1
+push constant 10
+add
+pop local 1
+label IF_FALSE3
+push argument 0
+push local 0
+push local 1
+call Block.ChangeCoords 3
+pop argument 0
+push argument 0
+call Block.Draw 1
+pop temp 0
+push argument 0
+return
+function Snake.dispose 0
+push argument 0
+call Block.dispose 1
+pop temp 0
+push constant 0
+return
