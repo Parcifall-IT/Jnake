@@ -19,6 +19,11 @@ pop local 0
 push local 0
 push constant 130
 eq
+push this 0
+push constant 2
+eq
+not
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -28,6 +33,11 @@ label IF_FALSE0
 push local 0
 push constant 131
 eq
+push this 0
+push constant 3
+eq
+not
+and
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
@@ -37,6 +47,11 @@ label IF_FALSE1
 push local 0
 push constant 132
 eq
+push this 0
+push constant 0
+eq
+not
+and
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
@@ -46,6 +61,11 @@ label IF_FALSE2
 push local 0
 push constant 133
 eq
+push this 0
+push constant 1
+eq
+not
+and
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3

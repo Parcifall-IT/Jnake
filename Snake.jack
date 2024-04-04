@@ -4,28 +4,43 @@ class Snake {
 
     constructor Snake init(int l) {
         var int i;
+        var int j;
         let i = 0;
         let length = l;
         let array = Array.new(length);
         while(i < length) {
-            let array[i] = Block.new(100 + i, 100);
+            let j = i * 10;
+            let array[i] = Block.new(100 + j, 100);
             let i = i + 1;
         }
-
+        do DrawSnake();
         return this;
     }
 
     method void MoveSnake(int direction) {
-        var int x, y;
+        var int x, y, i;
         var Block block;
+        let i = length - 1;
+        while(i > 0) {
+            let block = array[i - 1];
+            let x = block.GetCoord(true);
+            let y = block.GetCoord(false);
+            do Block.dispose(array[i]); 
+            let array[i] = Block.new(x, y);
+            let i = i - 1;
+        }
+
+
         let block = array[0];
         let x = block.GetCoord(true);
         let y = block.GetCoord(false);
+        
         if(direction = 0) { let x = x - 10; }
-        if(direction = 1) { let y = y - 10; }
+        if(direction = 1) { let y = y - 10; } 
         if(direction = 2) { let x = x + 10; }
         if(direction = 3) { let y = y + 10; }
-        let block = block.ChangeCoords(x, y);
+        
+        do block.ChangeCoords(x, y);
         let array[0] = block;
 
         do DrawSnake();

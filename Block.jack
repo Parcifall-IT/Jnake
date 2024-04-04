@@ -16,27 +16,23 @@ class Block {
         let x2 = x1 + size;
         let y1 = block.GetCoord(false);
         let y2 = y1 + size;
-    
         do Screen.drawRectangle(x1, y1, x2, y2);
 
         return;
     }
 
     method int GetCoord (boolean coord) {
-         var int res;
          if(coord) {
-            let res = X;
-         } else {
-            let res = Y;
-         }
-         return res;
+            return X; 
+        }
+        return Y;
     }
 
-    method Block ChangeCoords(int x, int y) {
+    method void ChangeCoords(int x, int y) {
         let X = x;
         let Y = y;
 
-        return this;
+        return;
     }
 
     function void dispose(Block block) {
