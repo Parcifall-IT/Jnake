@@ -55,7 +55,7 @@ label IF_FALSE3
 push this 2
 push this 0
 call Snake.MoveSnake 2
-pop this 2
+pop temp 0
 push constant 0
 not
 return

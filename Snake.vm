@@ -1,20 +1,55 @@
 function Snake.init 1
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop local 0
+push argument 0
+pop this 1
+push this 1
+call Array.new 1
+pop this 0
+label WHILE_EXP0
+push local 0
+push this 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
 push constant 100
+push local 0
+add
 push constant 100
 call Block.new 2
-pop local 0
-push local 0
-call Block.Draw 1
 pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
 return
-function Snake.MoveSnake 2
+function Snake.MoveSnake 3
 push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 2
+push local 2
 push constant 0
 not
 call Block.GetCoord 2
 pop local 0
-push argument 0
+push local 2
 push constant 0
 call Block.GetCoord 2
 pop local 1
@@ -62,19 +97,53 @@ push constant 10
 add
 pop local 1
 label IF_FALSE3
-push argument 0
+push local 2
 push local 0
 push local 1
 call Block.ChangeCoords 3
-pop argument 0
-push argument 0
-call Block.Draw 1
+pop local 2
+push constant 0
+push this 0
+add
+push local 2
 pop temp 0
-push argument 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+call Snake.DrawSnake 1
+pop temp 0
+push constant 0
 return
 function Snake.dispose 0
 push argument 0
 call Block.dispose 1
 pop temp 0
+push constant 0
+return
+function Snake.DrawSnake 1
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+call Block.Draw 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return

@@ -19,7 +19,7 @@ class Camera {
         if(key = 132) { let direction = 2; }
         if(key = 133) { let direction = 3; }
 
-        let snake = Snake.MoveSnake(snake, direction);
+        do snake.MoveSnake(direction);
         return true;
     }
 
