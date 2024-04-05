@@ -1,22 +1,19 @@
 function Game.init 0
-push constant 3
+push constant 2
 call Memory.alloc 1
 pop pointer 0
 call Game.AskSeed 0
-call Random.init 1
-pop static 0
+call Random.setSeed 1
+pop temp 0
 push argument 0
-pop this 1
-push argument 0
-call Snake.init 1
-pop this 2
-push constant 0
 pop this 0
+push constant 0
+pop static 0
 push constant 4
 call Array.new 1
-pop static 1
+pop static 2
 push constant 0
-push static 1
+push static 2
 add
 push constant 60
 pop temp 0
@@ -24,7 +21,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 1
-push static 1
+push static 2
 add
 push constant 60
 pop temp 0
@@ -32,7 +29,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 2
-push static 1
+push static 2
 add
 push constant 510
 push constant 60
@@ -42,7 +39,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 3
-push static 1
+push static 2
 add
 push constant 270
 push constant 60
@@ -53,6 +50,9 @@ push temp 0
 pop that 0
 call Game.CreateBorders 0
 pop temp 0
+push argument 0
+call Snake.init 1
+pop this 1
 push pointer 0
 return
 function Game.move 2
@@ -63,7 +63,7 @@ pop local 0
 push local 0
 push constant 130
 eq
-push this 0
+push static 0
 push constant 2
 eq
 not
@@ -72,12 +72,12 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push constant 0
-pop this 0
+pop static 0
 label IF_FALSE0
 push local 0
 push constant 131
 eq
-push this 0
+push static 0
 push constant 3
 eq
 not
@@ -86,12 +86,12 @@ if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
 push constant 1
-pop this 0
+pop static 0
 label IF_FALSE1
 push local 0
 push constant 132
 eq
-push this 0
+push static 0
 push constant 0
 eq
 not
@@ -100,12 +100,12 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push constant 2
-pop this 0
+pop static 0
 label IF_FALSE2
 push local 0
 push constant 133
 eq
-push this 0
+push static 0
 push constant 1
 eq
 not
@@ -114,10 +114,10 @@ if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
 push constant 3
-pop this 0
+pop static 0
 label IF_FALSE3
-push this 2
-push this 0
+push this 1
+push static 0
 call Snake.MoveSnake 2
 pop local 1
 push constant 100
@@ -128,7 +128,7 @@ return
 function Game.dispose 0
 push argument 0
 pop pointer 0
-push this 2
+push this 1
 call Snake.dispose 1
 pop temp 0
 push pointer 0
@@ -137,29 +137,29 @@ pop temp 0
 push constant 0
 return
 function Game.GetBorders 0
-push static 1
+push static 2
 return
 function Game.CreateBorders 4
 push constant 0
-push static 1
+push static 2
 add
 pop pointer 1
 push that 0
 pop local 0
 push constant 1
-push static 1
+push static 2
 add
 pop pointer 1
 push that 0
 pop local 1
 push constant 2
-push static 1
+push static 2
 add
 pop pointer 1
 push that 0
 pop local 2
 push constant 3
-push static 1
+push static 2
 add
 pop pointer 1
 push that 0
@@ -284,5 +284,8 @@ pop temp 0
 push local 0
 return
 function Game.getRandom 0
+push static 1
+return
+function Game.getDirection 0
 push static 0
 return

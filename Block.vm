@@ -103,3 +103,16 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
+function Block.DrawFruit 0
+push argument 2
+call Screen.setColor 1
+pop temp 0
+push argument 0
+push argument 1
+push static 0
+push constant 2
+call Math.divide 2
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return

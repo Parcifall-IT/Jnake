@@ -1,13 +1,12 @@
 class Snake {
-    field Array array;
+    static Array array;
     field int length;
+    field Fruit fruit;
 
     constructor Snake init(int l) {
         var int i, j, randX, randY;
-        var Random random;
-        let random = Game.getRandom();
-        let randX = random.randInt(80, 430);
-        let randY = random.randInt(80, 190);
+        let randX = Random.randInt(80, 430);
+        let randY = Random.randInt(80, 190);
         let i = 0;
         let length = l;
         let array = Array.new(length);
@@ -17,6 +16,7 @@ class Snake {
             let i = i + 1;
         }
         do DrawSnake();
+        let fruit = Fruit.CreateFruit(length);
         return this;
     }
 
@@ -26,6 +26,7 @@ class Snake {
         var boolean touchBorder;
         let i = length - 1;
         do Block.DrawHead(array[0], false);
+        do Block.DrawHead(array[1], false);
         while(i > 0) {
             let block = array[i - 1];
             let x = block.GetCoord(true);
@@ -35,8 +36,6 @@ class Snake {
             let array[i] = Block.new(x, y);
             let i = i - 1;
         }
-
-
         let block = array[0];
         let x = block.GetCoord(true);
         let y = block.GetCoord(false);
@@ -46,11 +45,18 @@ class Snake {
         if(direction = 2) { let x = x + 10; }
         if(direction = 3) { let y = y + 10; }
         
+        let fruit = Fruit.CreateFruit(length);
+
         do block.ChangeCoords(x, y);
         let array[0] = block;
 
         do DrawSnake();
         let touchBorder = CheckBorder();
+
+        if(CheckFruit()) {
+            do EatFruit();
+        }
+
         return ~touchBorder;
     }
 
@@ -82,5 +88,43 @@ class Snake {
             return true;
         }
         return false;
+    }
+
+    method boolean CheckFruit() {
+        var int fx, fy, x, y, dir;
+        var Block head;
+        let dir = Game.getDirection();
+        let head = array[0];
+        let fx = fruit.GetCoord(true);
+        let fy = fruit.GetCoord(false);
+        let x = head.GetCoord(true);
+        let y = head.GetCoord(false);
+        if(dir = 0) { let x = x - 10; }
+        if(dir = 1) { let y = y - 10; }
+        if(dir = 2) { let x = x + 10; }
+        if(dir = 3) { let y = y + 10; }
+        return (fx = x) & (fy = y);
+    }
+
+    method void EatFruit() {
+        var Array newarr;
+        var int i, x, y;
+        let length = length + 1;
+        let newarr = Array.new(length);
+        let i = 1;
+        while(i < length) {
+            let newarr[i] = array[i - 1];
+            let i = i + 1;
+        }
+        let x = fruit.GetCoord(true);
+        let y = fruit.GetCoord(false);
+        let newarr[0] = Block.new(x, y);
+        let array = newarr;
+        let fruit = Fruit.CreateFruit(length);
+        return;
+    }
+
+    function Array getArray() {
+        return array;
     }
 }

@@ -52,4 +52,11 @@ class Block {
         do Memory.deAlloc(block);
         return;
     }
+
+    function void DrawFruit(int x1, int y1, boolean color) {
+        do Screen.setColor(color);
+        do Screen.drawCircle(x1, y1, size / 2);
+
+        return;
+    }
 }

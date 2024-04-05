@@ -1,50 +1,73 @@
-function Random.init 0
-push constant 1
-call Memory.alloc 1
-pop pointer 0
+function Random.setSeed 0
 push argument 0
-pop this 0
-push constant 42
 pop static 0
-push constant 27
-pop static 1
-push pointer 0
-return
-function Random.randInt 1
-push argument 0
-pop pointer 0
-push argument 2
-push argument 1
-sub
-pop local 0
-push static 0
-push this 0
-call Math.multiply 2
-push static 1
-add
-push static 0
-push this 0
-call Math.multiply 2
-push static 1
-add
-push local 0
-call Math.divide 2
-push local 0
-call Math.multiply 2
-sub
-push constant 10
-call Math.divide 2
-push constant 10
-call Math.multiply 2
-push argument 1
-add
-pop this 0
-push this 0
-return
-function Random.changeSeed 0
-push argument 0
-pop pointer 0
-push argument 1
-pop this 0
 push constant 0
+return
+function Random.rand 0
+push static 0
+push constant 20251
+add
+pop static 0
+push static 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 0
+push constant 32761
+sub
+push constant 1
+sub
+pop static 0
+label IF_FALSE0
+push static 0
+return
+function Random.randInt 3
+push argument 1
+push argument 0
+sub
+pop local 2
+push constant 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push local 2
+lt
+not
+if-goto WHILE_END0
+push local 0
+push constant 2
+call Math.multiply 2
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+call Random.rand 0
+push local 0
+and
+pop local 1
+label WHILE_EXP1
+push local 1
+push local 2
+gt
+not
+if-goto WHILE_END1
+call Random.rand 0
+push local 0
+and
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+call Random.rand 0
+call Random.setSeed 1
+pop temp 0
+push local 1
+push argument 0
+add
+push constant 10
+call Math.divide 2
+push constant 10
+call Math.multiply 2
 return
