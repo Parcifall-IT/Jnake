@@ -1,9 +1,9 @@
-class Camera {
+class Game {
     field int direction;
     field int length;
     field Snake snake;
 
-    constructor Camera init(int l) {
+    constructor Game init(int l) {
         let length = l;
         let snake = Snake.init(l);
         let direction = 0;
@@ -20,6 +20,7 @@ class Camera {
         if(key = 133 & ~(direction = 1)) { let direction = 3; }
 
         do snake.MoveSnake(direction);
+        do Sys.wait(100);
         return true;
     }
 

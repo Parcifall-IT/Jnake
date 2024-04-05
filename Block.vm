@@ -6,11 +6,11 @@ push argument 0
 pop this 0
 push argument 1
 pop this 1
-push constant 10
+push constant 8
 pop static 0
 push pointer 0
 return
-function Block.Draw 4
+function Block.DrawTail 4
 push argument 0
 push constant 0
 not
@@ -28,6 +28,46 @@ push local 2
 push static 0
 add
 pop local 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
+push local 0
+push constant 1
+add
+push local 2
+push constant 1
+add
+push local 1
+push constant 1
+sub
+push local 3
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Block.DrawHead 4
+push argument 0
+push constant 0
+not
+call Block.GetCoord 2
+pop local 0
+push local 0
+push static 0
+add
+pop local 1
+push argument 0
+push constant 0
+call Block.GetCoord 2
+pop local 2
+push local 2
+push static 0
+add
+pop local 3
+push argument 1
+call Screen.setColor 1
+pop temp 0
 push local 0
 push local 2
 push local 1

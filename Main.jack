@@ -1,18 +1,17 @@
 class Main {
 
     function void main () {
-        var Camera camera;
+        var Game game;
         var boolean restart;
-        let camera = Camera.init(3);
-        let restart = camera.move();
+        let game = Game.init(6);
+        let restart = game.move();
         while(restart) {
         
             let restart = false;
             //do camera.dispose();
             //let camera = Camera.init(1);
-            do Screen.clearScreen();
-            let restart = camera.move();
-            do Sys.wait(100);
+            //do Screen.clearScreen();
+            let restart = game.move();
         }
         return;
     }

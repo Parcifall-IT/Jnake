@@ -49,6 +49,14 @@ push this 1
 push constant 1
 sub
 pop local 2
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 0
+call Block.DrawHead 2
+pop temp 0
 label WHILE_EXP0
 push local 2
 push constant 0
@@ -72,6 +80,14 @@ push local 3
 push constant 0
 call Block.GetCoord 2
 pop local 1
+push local 2
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 0
+call Block.DrawTail 2
+pop temp 0
 push local 2
 push this 0
 add
@@ -181,8 +197,17 @@ return
 function Snake.DrawSnake 1
 push argument 0
 pop pointer 0
-push constant 0
+push constant 1
 pop local 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+call Block.DrawHead 2
+pop temp 0
 label WHILE_EXP0
 push local 0
 push this 1
@@ -194,7 +219,9 @@ push this 0
 add
 pop pointer 1
 push that 0
-call Block.Draw 1
+push constant 0
+not
+call Block.DrawTail 2
 pop temp 0
 push local 0
 push constant 1

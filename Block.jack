@@ -5,17 +5,30 @@ class Block {
     constructor Block new(int x, int y) {
         let X = x;
         let Y = y;
-        let size = 10;
+        let size = 8;
 
         return this;
     }
 
-    function void Draw(Block block) {
+    function void DrawTail(Block block, boolean color) {
         var int x1, x2, y1, y2;
         let x1 = block.GetCoord(true);
         let x2 = x1 + size;
         let y1 = block.GetCoord(false);
         let y2 = y1 + size;
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x1 + 1, y1 + 1, x2 - 1, y2 - 1);
+
+        return;
+    }
+
+    function void DrawHead(Block block, boolean color) {
+        var int x1, x2, y1, y2;
+        let x1 = block.GetCoord(true);
+        let x2 = x1 + size;
+        let y1 = block.GetCoord(false);
+        let y2 = y1 + size;
+        do Screen.setColor(color);
         do Screen.drawRectangle(x1, y1, x2, y2);
 
         return;

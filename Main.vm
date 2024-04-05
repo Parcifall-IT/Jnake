@@ -1,9 +1,9 @@
 function Main.main 2
-push constant 3
-call Camera.init 1
+push constant 6
+call Game.init 1
 pop local 0
 push local 0
-call Camera.move 1
+call Game.move 1
 pop local 1
 label WHILE_EXP0
 push local 1
@@ -11,14 +11,9 @@ not
 if-goto WHILE_END0
 push constant 0
 pop local 1
-call Screen.clearScreen 0
-pop temp 0
 push local 0
-call Camera.move 1
+call Game.move 1
 pop local 1
-push constant 100
-call Sys.wait 1
-pop temp 0
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0

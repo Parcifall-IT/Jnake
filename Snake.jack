@@ -21,10 +21,12 @@ class Snake {
         var int x, y, i;
         var Block block;
         let i = length - 1;
+        do Block.DrawHead(array[0], false);
         while(i > 0) {
             let block = array[i - 1];
             let x = block.GetCoord(true);
             let y = block.GetCoord(false);
+            do Block.DrawTail(array[i], false);
             do Block.dispose(array[i]); 
             let array[i] = Block.new(x, y);
             let i = i - 1;
@@ -44,7 +46,6 @@ class Snake {
         let array[0] = block;
 
         do DrawSnake();
-
         return;
     }
 
@@ -55,9 +56,10 @@ class Snake {
 
     method void DrawSnake() {
         var int i;
-        let i = 0;
+        let i = 1;
+        do Block.DrawHead(array[0], true);
         while(i < length) {
-            do Block.Draw(array[i]);
+            do Block.DrawTail(array[i], true);
             let i = i + 1;
         }
         return;
