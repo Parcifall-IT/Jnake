@@ -3,14 +3,17 @@ class Snake {
     field int length;
 
     constructor Snake init(int l) {
-        var int i;
-        var int j;
+        var int i, j, randX, randY;
+        var Random random;
+        let random = Game.getRandom();
+        let randX = random.randInt(80, 430);
+        let randY = random.randInt(80, 190);
         let i = 0;
         let length = l;
         let array = Array.new(length);
         while(i < length) {
             let j = i * 10;
-            let array[i] = Block.new(150 + j, 100);
+            let array[i] = Block.new(randX + j, randY);
             let i = i + 1;
         }
         do DrawSnake();

@@ -1,5 +1,4 @@
 class Main {
-
     function void main () {
         var Game game;
         var boolean restart, wantToPlay;
@@ -7,10 +6,11 @@ class Main {
         var int key;
         let lose = "You lose, press (SPACE) to play more";
         let end = "Cry";
+
         let wantToPlay = true;
         while(wantToPlay) {
-            do Screen.clearScreen();
             do Output.moveCursor(0, 0);
+            do Screen.clearScreen();
             let game = Game.init(6);
             let restart = game.move();
             while(restart) {

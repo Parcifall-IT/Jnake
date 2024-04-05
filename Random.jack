@@ -1,19 +1,25 @@
 class Random {
-    static int prev;
+    field int prev;
     static int a;
     static int c;
 
-    function int randInt(int bottomLimit, int topLimit) {
-        var int range;
-        
-        if (prev = 0) {
-            let prev = 1;
-        }
+    constructor Random init(int p) {
+        let prev = p;
         let a = 42;
         let c = 27;
+        return this;
+    }
+
+    method int randInt(int bottomLimit, int topLimit) {
+        var int range;
         let range = topLimit - bottomLimit;
-        let prev = Math2.mod(a * prev + c, range);
+        let prev = a * prev + c - ((a * prev + c) / range * range) / 10 * 10 + bottomLimit;
         
-        return bottomLimit + prev;
+        return prev;
+    }
+
+    method void changeSeed(int seed) {
+        let prev = seed;
+        return;
     }
 }

@@ -1,7 +1,19 @@
-function Snake.init 2
+function Snake.init 5
 push constant 2
 call Memory.alloc 1
 pop pointer 0
+call Game.getRandom 0
+pop local 4
+push local 4
+push constant 80
+push constant 430
+call Random.randInt 3
+pop local 2
+push local 4
+push constant 80
+push constant 190
+call Random.randInt 3
+pop local 3
 push constant 0
 pop local 0
 push argument 0
@@ -22,10 +34,10 @@ pop local 1
 push local 0
 push this 0
 add
-push constant 150
+push local 2
 push local 1
 add
-push constant 100
+push local 3
 call Block.new 2
 pop temp 0
 pop pointer 1

@@ -90,11 +90,11 @@ label WHILE_EXP0
 push local 2
 not
 if-goto WHILE_END0
-call Screen.clearScreen 0
-pop temp 0
 push constant 0
 push constant 0
 call Output.moveCursor 2
+pop temp 0
+call Screen.clearScreen 0
 pop temp 0
 push constant 6
 call Game.init 1
