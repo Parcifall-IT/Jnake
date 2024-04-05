@@ -13,7 +13,8 @@ class Game {
         let borders[0] = 60;
         let borders[1] = 60;
         let borders[2] = 510 - 60;
-        let borders[3] = 250 - 60;
+        let borders[3] = 270 - 60;
+        do Game.CreateBorders();
         return this;
     }
 
@@ -44,7 +45,14 @@ class Game {
     }
 
     function void CreateBorders() {
-        
+        var int x1, y1, x2, y2;
+        let x1 = borders[0];
+        let y1 = borders[1];
+        let x2 = borders[2];
+        let y2 = borders[3];
+        do Screen.drawRectangle(x1 - 17, y1 - 17, x2 + 25, y2 + 25);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x1 - 12, y1 - 12, x2 + 20, y2 + 20);
         return;
     }
 }

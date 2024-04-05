@@ -28,6 +28,7 @@ class Main {
         if(~(key = 32)) { let wantToPlay = false; }
         }
         do Screen.clearScreen();
+        do Output.moveCursor(10, 30);
         do Output.printString(end);
         return;
     }

@@ -41,13 +41,15 @@ pop that 0
 push constant 3
 push static 0
 add
-push constant 250
+push constant 270
 push constant 60
 sub
 pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+call Game.CreateBorders 0
+pop temp 0
 push pointer 0
 return
 function Game.move 2
@@ -134,6 +136,61 @@ return
 function Game.GetBorders 0
 push static 0
 return
-function Game.CreateBorders 0
+function Game.CreateBorders 4
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push constant 1
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push constant 2
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 2
+push constant 3
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 3
+push local 0
+push constant 17
+sub
+push local 1
+push constant 17
+sub
+push local 2
+push constant 25
+add
+push local 3
+push constant 25
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 0
+push constant 12
+sub
+push local 1
+push constant 12
+sub
+push local 2
+push constant 20
+add
+push local 3
+push constant 20
+add
+call Screen.drawRectangle 4
+pop temp 0
 push constant 0
 return
