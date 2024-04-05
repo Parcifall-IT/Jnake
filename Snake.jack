@@ -10,16 +10,17 @@ class Snake {
         let array = Array.new(length);
         while(i < length) {
             let j = i * 10;
-            let array[i] = Block.new(100 + j, 100);
+            let array[i] = Block.new(150 + j, 100);
             let i = i + 1;
         }
         do DrawSnake();
         return this;
     }
 
-    method void MoveSnake(int direction) {
+    method boolean MoveSnake(int direction) {
         var int x, y, i;
         var Block block;
+        var boolean touchBorder;
         let i = length - 1;
         do Block.DrawHead(array[0], false);
         while(i > 0) {
@@ -46,7 +47,8 @@ class Snake {
         let array[0] = block;
 
         do DrawSnake();
-        return;
+        let touchBorder = CheckBorder();
+        return ~touchBorder;
     }
 
     function void dispose(Block snake) {
@@ -63,5 +65,19 @@ class Snake {
             let i = i + 1;
         }
         return;
+    }
+
+    method boolean CheckBorder() {
+        var Array borders;
+        var Block head;
+        var int x, y;
+        let borders = Game.GetBorders();
+        let head = array[0];
+        let x = head.GetCoord(true);
+        let y = head.GetCoord(false);
+        if((x < borders[0]) | (x > borders[2]) | (y < borders[1]) | (y > borders[3])) {
+            return true;
+        }
+        return false;
     }
 }

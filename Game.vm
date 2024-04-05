@@ -9,9 +9,48 @@ call Snake.init 1
 pop this 2
 push constant 0
 pop this 0
+push constant 4
+call Array.new 1
+pop static 0
+push constant 0
+push static 0
+add
+push constant 60
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 0
+add
+push constant 60
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push static 0
+add
+push constant 510
+push constant 60
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push static 0
+add
+push constant 250
+push constant 60
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push pointer 0
 return
-function Game.move 1
+function Game.move 2
 push argument 0
 pop pointer 0
 call Keyboard.keyPressed 0
@@ -75,12 +114,11 @@ label IF_FALSE3
 push this 2
 push this 0
 call Snake.MoveSnake 2
-pop temp 0
+pop local 1
 push constant 100
 call Sys.wait 1
 pop temp 0
-push constant 0
-not
+push local 1
 return
 function Game.dispose 0
 push argument 0
@@ -91,5 +129,11 @@ pop temp 0
 push pointer 0
 call Memory.deAlloc 1
 pop temp 0
+push constant 0
+return
+function Game.GetBorders 0
+push static 0
+return
+function Game.CreateBorders 0
 push constant 0
 return

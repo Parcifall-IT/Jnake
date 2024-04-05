@@ -2,17 +2,33 @@ class Main {
 
     function void main () {
         var Game game;
-        var boolean restart;
-        let game = Game.init(6);
-        let restart = game.move();
-        while(restart) {
-        
-            let restart = false;
-            //do camera.dispose();
-            //let camera = Camera.init(1);
-            //do Screen.clearScreen();
+        var boolean restart, wantToPlay;
+        var string lose, end;
+        var int key;
+        let lose = "You lose, press (SPACE) to play more";
+        let end = "Cry";
+        let wantToPlay = true;
+        while(wantToPlay) {
+            do Screen.clearScreen();
+            do Output.moveCursor(0, 0);
+            let game = Game.init(6);
             let restart = game.move();
+            while(restart) {
+                let restart = false;
+                //do camera.dispose();
+                //let camera = Camera.init(1);
+                //do Screen.clearScreen();
+                let restart = game.move();
+            }
+        //do Screen.clearScreen();
+        do Output.moveCursor(0, 0);
+        do Output.printString(lose);
+        let key = 0;
+        while(key = 0) { let key = Keyboard.keyPressed(); }
+        if(~(key = 32)) { let wantToPlay = false; }
         }
+        do Screen.clearScreen();
+        do Output.printString(end);
         return;
     }
 }

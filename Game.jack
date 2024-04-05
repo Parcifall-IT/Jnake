@@ -2,16 +2,24 @@ class Game {
     field int direction;
     field int length;
     field Snake snake;
+    static Array borders;
 
     constructor Game init(int l) {
         let length = l;
         let snake = Snake.init(l);
         let direction = 0;
+
+        let borders = Array.new(4);
+        let borders[0] = 60;
+        let borders[1] = 60;
+        let borders[2] = 510 - 60;
+        let borders[3] = 250 - 60;
         return this;
     }
 
     method boolean move () {
         var int key;
+        var boolean canmove;
         let key = Keyboard.keyPressed();
 
         if((key = 130) & ~(direction = 2)) { let direction = 0; }
@@ -19,15 +27,24 @@ class Game {
         if(key = 132 & ~(direction = 0)) { let direction = 2; }
         if(key = 133 & ~(direction = 1)) { let direction = 3; }
 
-        do snake.MoveSnake(direction);
+        let canmove = snake.MoveSnake(direction);
         do Sys.wait(100);
-        return true;
+        return canmove;
     }
 
     method void dispose() {
         do Snake.dispose(snake);
         //do Block.dispose(snake);
         do Memory.deAlloc(this);
+        return;
+    }
+
+    function Array GetBorders() {
+        return borders;
+    }
+
+    function void CreateBorders() {
+        
         return;
     }
 }
