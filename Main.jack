@@ -2,34 +2,36 @@ class Main {
     function void main () {
         var Game game;
         var boolean restart, wantToPlay;
-        var string lose, end;
-        var int key;
-        let lose = "You lose, press (SPACE) to play more";
-        let end = "Cry";
+        var int key, score;
 
         let wantToPlay = true;
         while(wantToPlay) {
+            do Sys.wait(500);
             do Output.moveCursor(0, 0);
             do Screen.clearScreen();
-            let game = Game.init(6);
+            let game = Game.init(5);
             let restart = game.move();
             while(restart) {
                 let restart = false;
-                //do camera.dispose();
-                //let camera = Camera.init(1);
-                //do Screen.clearScreen();
                 let restart = game.move();
             }
-        //do Screen.clearScreen();
-        do Output.moveCursor(0, 0);
-        do Output.printString(lose);
-        let key = 0;
-        while(key = 0) { let key = Keyboard.keyPressed(); }
-        if(~(key = 32)) { let wantToPlay = false; }
+            let score = Snake.GetScore();
+            do game.dispose();
+            do Output.moveCursor(0, 0);
+
+            do Output.printString("You lose, your score : ");
+            do Output.printInt(score);
+            do Output.printString(",");
+            do Output.moveCursor(1, 0);
+            do Output.printString("Press (SPACE) to play more or (ESC) to exit");
+
+            let key = 0;
+            while(~(key = 32) & (~(key = 140))) { let key = Keyboard.keyPressed(); }
+            if(~(key = 32)) { let wantToPlay = false; }
         }
         do Screen.clearScreen();
-        do Output.moveCursor(10, 30);
-        do Output.printString(end);
+        do Output.moveCursor(10, 20);
+        do Output.printString("CHIPI CHIPI CHAPA CHAPA");
         return;
     }
 }

@@ -6,7 +6,7 @@ class Game {
     static Array borders;
 
     constructor Game init(int l) {
-        do Random.setSeed(Game.AskSeed());
+        do Random.SetSeed(Game.AskSeed());
         let length = l;
         let direction = 0;
         let borders = Array.new(4);
@@ -28,16 +28,9 @@ class Game {
         if(key = 131 & ~(direction = 3)) { let direction = 1; }
         if(key = 132 & ~(direction = 0)) { let direction = 2; }
         if(key = 133 & ~(direction = 1)) { let direction = 3; }
-        let canmove = snake.MoveSnake(direction);
+        let canmove = snake.moveSnake(direction);
         do Sys.wait(100);
         return canmove;
-    }
-
-    method void dispose() {
-        do Snake.dispose(snake);
-        //do Block.dispose(snake);
-        do Memory.deAlloc(this);
-        return;
     }
 
     function Array GetBorders() {
@@ -57,20 +50,30 @@ class Game {
     }
 
     function int AskSeed() {
-        var int seed;
+        var int seed, key;
         var string str;
         let seed = 0;
-        let str = "Input your favorite number > 0: ";
-        while(~(seed > 0)) { let seed = Keyboard.readInt(str); }
+        let str = "PRESS ANY KEY TO START EATING FRUITS";
+        let key = 0;
+        do Output.printString(str);
+        while(key = 0) { 
+            let key = Keyboard.keyPressed(); 
+            let seed = seed + 1;
+        }
         do Screen.clearScreen();
         return seed;
     }
 
-    function Random getRandom() {
+    function Random GetRandom() {
         return random;
     }
 
-    function int getDirection() {
+    function int GetDirection() {
         return direction;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
     }
 }

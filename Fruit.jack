@@ -1,7 +1,7 @@
 class Fruit {
-    static int X, Y;
+    field int X, Y;
 
-    function void CreateFruit(int length) {
+    constructor Fruit init(int length) {
         var int x, y;
         var Array borders, snake;
         var int b1, b2, i;
@@ -11,15 +11,15 @@ class Fruit {
         let x = 0;
         let y = 0;
         let flag = true;
-        let snake = Snake.getArray();
+        let snake = Snake.GetArray();
         
         while(flag) {
             let flag = false;
-            let x = Random.randInt(borders[0] + 4, borders[2] - 4);
-            let y = Random.randInt(borders[1] + 4, borders[3] - 4);
+            let x = Random.RandInt(borders[0] + 4, borders[2] - 4);
+            let y = Random.RandInt(borders[1] + 4, borders[3] - 4);
             while(i < length) {
                 let snk = snake[i];
-                if((x = snk.GetCoord(true)) & (y = snk.GetCoord(false))) {
+                if((x = snk.getCoord(true)) & (y = snk.getCoord(false))) {
                     let flag = true;
                 }
                 let i = i + 1;
@@ -28,18 +28,18 @@ class Fruit {
         do Block.DrawFruit(x + 4, y + 4, true);
         let X = x;
         let Y = y;
-        return;
+        return this;
     }
 
-    method int GetCoord(boolean coord) {
+    method int getCoord(boolean coord) {
          if(coord) {
             return X; 
         }
         return Y;
     }
 
-    function void dispose(Fruit fruit) {
-        do Memory.deAlloc(fruit);
+    method void dispose() {
+        do Memory.deAlloc(this);
         return;
     }
 }

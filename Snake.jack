@@ -2,11 +2,13 @@ class Snake {
     static Array array;
     field int length;
     field Fruit fruit;
+    static int score;
 
     constructor Snake init(int l) {
         var int i, j, randX, randY;
-        let randX = Random.randInt(80, 430);
-        let randY = Random.randInt(80, 190);
+        let score = 0;
+        let randX = Random.RandInt(80, 430);
+        let randY = Random.RandInt(80, 190);
         let i = 0;
         let length = l;
         let array = Array.new(length);
@@ -15,57 +17,53 @@ class Snake {
             let array[i] = Block.new(randX + j, randY);
             let i = i + 1;
         }
-        do DrawSnake();
-        let fruit = Fruit.CreateFruit(length);
+        do drawSnake();
+        let fruit = Fruit.init(length);
         return this;
     }
 
-    method boolean MoveSnake(int direction) {
+    method boolean moveSnake(int direction) {
         var int x, y, i;
         var Block block;
-        var boolean touchBorder;
+        var boolean touchBorder, touchSelf;
+
+        if(checkFruit()) {
+            do eatFruit();
+        }
+
         let i = length - 1;
         do Block.DrawHead(array[0], false);
         do Block.DrawHead(array[1], false);
         while(i > 0) {
             let block = array[i - 1];
-            let x = block.GetCoord(true);
-            let y = block.GetCoord(false);
-            do Block.DrawTail(array[i], false);
-            do Block.dispose(array[i]); 
+            let x = block.getCoord(true);
+            let y = block.getCoord(false);
+            let block = array[i];
+            do Block.DrawTail(block, false);
+            do block.dispose(); 
             let array[i] = Block.new(x, y);
             let i = i - 1;
         }
         let block = array[0];
-        let x = block.GetCoord(true);
-        let y = block.GetCoord(false);
+        let x = block.getCoord(true);
+        let y = block.getCoord(false);
         
         if(direction = 0) { let x = x - 10; }
         if(direction = 1) { let y = y - 10; } 
         if(direction = 2) { let x = x + 10; }
         if(direction = 3) { let y = y + 10; }
-        
-        let fruit = Fruit.CreateFruit(length);
 
-        do block.ChangeCoords(x, y);
+        do block.changeCoords(x, y);
         let array[0] = block;
 
-        do DrawSnake();
-        let touchBorder = CheckBorder();
+        do drawSnake();
+        let touchBorder = checkBorder();
+        let touchSelf = checkSelf();
 
-        if(CheckFruit()) {
-            do EatFruit();
-        }
-
-        return ~touchBorder;
+        return ~touchBorder & ~touchSelf;
     }
 
-    function void dispose(Block snake) {
-        do Block.dispose(snake);
-        return;
-    }
-
-    method void DrawSnake() {
+    method void drawSnake() {
         var int i;
         let i = 1;
         do Block.DrawHead(array[0], true);
@@ -76,29 +74,51 @@ class Snake {
         return;
     }
 
-    method boolean CheckBorder() {
+    method boolean checkSelf() {
+        var int i, x, y, dir;
+        var Block block;
+        let i = 1;
+        let block = array[0];
+        let x = block.getCoord(true);
+        let y = block.getCoord(false);
+        let dir = Game.GetDirection();
+        if(dir = 0) { let x = x - 10; }
+        if(dir = 1) { let y = y - 10; }
+        if(dir = 2) { let x = x + 10; }
+        if(dir = 3) { let y = y + 10; }
+
+        while(i < length) {
+            let block = array[i];
+            if((x = block.getCoord(true)) & (y = block.getCoord(false))) { return true; }
+            let i = i + 1;
+        }
+
+        return false;
+    }
+
+    method boolean checkBorder() {
         var Array borders;
         var Block head;
         var int x, y;
         let borders = Game.GetBorders();
         let head = array[0];
-        let x = head.GetCoord(true);
-        let y = head.GetCoord(false);
+        let x = head.getCoord(true);
+        let y = head.getCoord(false);
         if((x < borders[0]) | (x > borders[2]) | (y < borders[1]) | (y > borders[3])) {
             return true;
         }
         return false;
     }
 
-    method boolean CheckFruit() {
+    method boolean checkFruit() {
         var int fx, fy, x, y, dir;
         var Block head;
-        let dir = Game.getDirection();
+        let dir = Game.GetDirection();
         let head = array[0];
-        let fx = fruit.GetCoord(true);
-        let fy = fruit.GetCoord(false);
-        let x = head.GetCoord(true);
-        let y = head.GetCoord(false);
+        let fx = fruit.getCoord(true);
+        let fy = fruit.getCoord(false);
+        let x = head.getCoord(true);
+        let y = head.getCoord(false);
         if(dir = 0) { let x = x - 10; }
         if(dir = 1) { let y = y - 10; }
         if(dir = 2) { let x = x + 10; }
@@ -106,9 +126,10 @@ class Snake {
         return (fx = x) & (fy = y);
     }
 
-    method void EatFruit() {
+    method void eatFruit() {
         var Array newarr;
         var int i, x, y;
+        let score = score + 1;
         let length = length + 1;
         let newarr = Array.new(length);
         let i = 1;
@@ -116,15 +137,25 @@ class Snake {
             let newarr[i] = array[i - 1];
             let i = i + 1;
         }
-        let x = fruit.GetCoord(true);
-        let y = fruit.GetCoord(false);
+        let x = fruit.getCoord(true);
+        let y = fruit.getCoord(false);
         let newarr[0] = Block.new(x, y);
         let array = newarr;
-        let fruit = Fruit.CreateFruit(length);
+        do fruit.dispose();
+        let fruit = Fruit.init(length);
         return;
     }
 
-    function Array getArray() {
+    function Array GetArray() {
         return array;
+    }
+
+    function int GetScore() {
+        return score;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
     }
 }

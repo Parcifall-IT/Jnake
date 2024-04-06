@@ -1,4 +1,7 @@
-function Fruit.CreateFruit 9
+function Fruit.init 9
+push constant 2
+call Memory.alloc 1
+pop pointer 0
 call Game.GetBorders 0
 pop local 2
 push constant 0
@@ -8,7 +11,7 @@ pop local 1
 push constant 0
 not
 pop local 7
-call Snake.getArray 0
+call Snake.GetArray 0
 pop local 3
 label WHILE_EXP0
 push local 7
@@ -30,7 +33,7 @@ pop pointer 1
 push that 0
 push constant 4
 sub
-call Random.randInt 2
+call Random.RandInt 2
 pop local 0
 push constant 1
 push local 2
@@ -46,7 +49,7 @@ pop pointer 1
 push that 0
 push constant 4
 sub
-call Random.randInt 2
+call Random.RandInt 2
 pop local 1
 label WHILE_EXP1
 push local 6
@@ -64,12 +67,12 @@ push local 0
 push local 8
 push constant 0
 not
-call Block.GetCoord 2
+call Block.getCoord 2
 eq
 push local 1
 push local 8
 push constant 0
-call Block.GetCoord 2
+call Block.getCoord 2
 eq
 and
 if-goto IF_TRUE0
@@ -98,25 +101,27 @@ not
 call Block.DrawFruit 3
 pop temp 0
 push local 0
-pop static 0
+pop this 0
 push local 1
-pop static 1
-push constant 0
+pop this 1
+push pointer 0
 return
-function Fruit.GetCoord 0
+function Fruit.getCoord 0
 push argument 0
 pop pointer 0
 push argument 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push static 0
+push this 0
 return
 label IF_FALSE0
-push static 1
+push this 1
 return
 function Fruit.dispose 0
 push argument 0
+pop pointer 0
+push pointer 0
 call Memory.deAlloc 1
 pop temp 0
 push constant 0

@@ -14,7 +14,7 @@ function Block.DrawTail 4
 push argument 0
 push constant 0
 not
-call Block.GetCoord 2
+call Block.getCoord 2
 pop local 0
 push local 0
 push static 0
@@ -22,7 +22,7 @@ add
 pop local 1
 push argument 0
 push constant 0
-call Block.GetCoord 2
+call Block.getCoord 2
 pop local 2
 push local 2
 push static 0
@@ -51,7 +51,7 @@ function Block.DrawHead 4
 push argument 0
 push constant 0
 not
-call Block.GetCoord 2
+call Block.getCoord 2
 pop local 0
 push local 0
 push static 0
@@ -59,7 +59,7 @@ add
 pop local 1
 push argument 0
 push constant 0
-call Block.GetCoord 2
+call Block.getCoord 2
 pop local 2
 push local 2
 push static 0
@@ -76,7 +76,7 @@ call Screen.drawRectangle 4
 pop temp 0
 push constant 0
 return
-function Block.GetCoord 0
+function Block.getCoord 0
 push argument 0
 pop pointer 0
 push argument 1
@@ -88,19 +88,13 @@ return
 label IF_FALSE0
 push this 1
 return
-function Block.ChangeCoords 0
+function Block.changeCoords 0
 push argument 0
 pop pointer 0
 push argument 1
 pop this 0
 push argument 2
 pop this 1
-push constant 0
-return
-function Block.dispose 0
-push argument 0
-call Memory.deAlloc 1
-pop temp 0
 push constant 0
 return
 function Block.DrawFruit 0
@@ -113,6 +107,14 @@ push static 0
 push constant 2
 call Math.divide 2
 call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Block.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return

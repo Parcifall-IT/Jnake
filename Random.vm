@@ -1,9 +1,9 @@
-function Random.setSeed 0
+function Random.SetSeed 0
 push argument 0
 pop static 0
 push constant 0
 return
-function Random.rand 0
+function Random.Rand 0
 push static 0
 push constant 20251
 add
@@ -23,7 +23,7 @@ pop static 0
 label IF_FALSE0
 push static 0
 return
-function Random.randInt 3
+function Random.RandInt 3
 push argument 1
 push argument 0
 sub
@@ -44,7 +44,7 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
-call Random.rand 0
+call Random.Rand 0
 push local 0
 and
 pop local 1
@@ -54,14 +54,14 @@ push local 2
 gt
 not
 if-goto WHILE_END1
-call Random.rand 0
+call Random.Rand 0
 push local 0
 and
 pop local 1
 goto WHILE_EXP1
 label WHILE_END1
-call Random.rand 0
-call Random.setSeed 1
+call Random.Rand 0
+call Random.SetSeed 1
 pop temp 0
 push local 1
 push argument 0
