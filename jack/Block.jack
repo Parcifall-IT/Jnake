@@ -1,0 +1,62 @@
+class Block {
+    field int X, Y;
+    static int size;
+
+    constructor Block new(int x, int y) {
+        let X = x;
+        let Y = y;
+        let size = 8;
+
+        return this;
+    }
+
+    function void DrawTail(Block block, boolean color) {
+        var int x1, x2, y1, y2;
+        let x1 = block.getCoord(true);
+        let x2 = x1 + size;
+        let y1 = block.getCoord(false);
+        let y2 = y1 + size;
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x1 + 1, y1 + 1, x2 - 1, y2 - 1);
+
+        return;
+    }
+
+    function void DrawHead(Block block, boolean color) {
+        var int x1, x2, y1, y2;
+        let x1 = block.getCoord(true);
+        let x2 = x1 + size;
+        let y1 = block.getCoord(false);
+        let y2 = y1 + size;
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x1, y1, x2, y2);
+
+        return;
+    }
+
+    method int getCoord (boolean coord) {
+         if(coord) {
+            return X; 
+        }
+        return Y;
+    }
+
+    method void changeCoords(int x, int y) {
+        let X = x;
+        let Y = y;
+
+        return;
+    }
+
+    function void DrawFruit(int x1, int y1, boolean color) {
+        do Screen.setColor(color);
+        do Screen.drawCircle(x1, y1, size / 2);
+
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

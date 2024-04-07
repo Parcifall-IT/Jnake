@@ -1,0 +1,79 @@
+class Game {
+    static int direction;
+    field int length;
+    field Snake snake;
+    static Random random;
+    static Array borders;
+
+    constructor Game init(int l) {
+        do Random.SetSeed(Game.AskSeed());
+        let length = l;
+        let direction = 0;
+        let borders = Array.new(4);
+        let borders[0] = 60;
+        let borders[1] = 60;
+        let borders[2] = 510 - 60;
+        let borders[3] = 270 - 60;
+        do Game.CreateBorders();
+        let snake = Snake.init(l);
+        return this;
+    }
+
+    method boolean move () {
+        var int key;
+        var boolean canmove;
+        let key = Keyboard.keyPressed();
+
+        if((key = 130) & ~(direction = 2)) { let direction = 0; }
+        if(key = 131 & ~(direction = 3)) { let direction = 1; }
+        if(key = 132 & ~(direction = 0)) { let direction = 2; }
+        if(key = 133 & ~(direction = 1)) { let direction = 3; }
+        let canmove = snake.moveSnake(direction);
+        do Sys.wait(100);
+        return canmove;
+    }
+
+    function Array GetBorders() {
+        return borders;
+    }
+
+    function void CreateBorders() {
+        var int x1, y1, x2, y2;
+        let x1 = borders[0];
+        let y1 = borders[1];
+        let x2 = borders[2];
+        let y2 = borders[3];
+        do Screen.drawRectangle(x1 - 17, y1 - 17, x2 + 25, y2 + 25);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x1 - 12, y1 - 12, x2 + 20, y2 + 20);
+        return;
+    }
+
+    function int AskSeed() {
+        var int seed, key;
+        var string str;
+        let seed = 0;
+        let str = "PRESS ANY KEY TO START EATING FRUITS";
+        let key = 0;
+        do Output.printString(str);
+        while(key = 0) { 
+            let key = Keyboard.keyPressed(); 
+            let seed = seed + 1;
+        }
+        do Screen.clearScreen();
+        return seed;
+    }
+
+    function Random GetRandom() {
+        return random;
+    }
+
+    function int GetDirection() {
+        return direction;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

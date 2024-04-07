@@ -1,0 +1,31 @@
+class Random {
+    static int seed;
+  
+    function void SetSeed(int newSeed) {
+        let seed = newSeed;
+        return;
+    } 
+
+    function int Rand() {
+        let seed = seed + 20251;
+        if (seed < 0) {
+            let seed = seed - 32761 - 1;
+        }
+        return seed;
+    }
+
+    function int RandInt(int down, int up) {
+        var int mask, ret, range;
+        let range = up - down;
+        let mask = 1;
+        while (mask < range) {
+            let mask = mask * 2 + 1;
+        }
+        let ret = Random.Rand() & mask;
+        while (ret > range) {
+            let ret = Random.Rand() & mask;
+        }
+        do Random.SetSeed(Random.Rand());
+        return (ret + down) / 10 * 10;
+    }
+}

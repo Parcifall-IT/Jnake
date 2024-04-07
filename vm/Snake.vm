@@ -1,0 +1,596 @@
+function Snake.init 4
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop static 1
+push constant 80
+push constant 430
+call Random.RandInt 2
+pop local 2
+push constant 80
+push constant 190
+call Random.RandInt 2
+pop local 3
+push constant 0
+pop local 0
+push argument 0
+pop this 0
+push this 0
+call Array.new 1
+pop static 0
+label WHILE_EXP0
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END0
+push local 0
+push constant 10
+call Math.multiply 2
+pop local 1
+push local 0
+push static 0
+add
+push local 2
+push local 1
+add
+push local 3
+call Block.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+call Snake.drawSnake 1
+pop temp 0
+push this 0
+call Fruit.init 1
+pop this 1
+push pointer 0
+return
+function Snake.moveSnake 6
+push argument 0
+pop pointer 0
+push pointer 0
+call Snake.checkFruit 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Snake.eatFruit 1
+pop temp 0
+label IF_FALSE0
+push this 0
+push constant 1
+sub
+pop local 2
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+push constant 0
+call Block.DrawHead 2
+pop temp 0
+push constant 1
+push static 0
+add
+pop pointer 1
+push that 0
+push constant 0
+call Block.DrawHead 2
+pop temp 0
+label WHILE_EXP0
+push local 2
+push constant 0
+gt
+not
+if-goto WHILE_END0
+push local 2
+push constant 1
+sub
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 3
+push local 3
+push constant 0
+not
+call Block.getCoord 2
+pop local 0
+push local 3
+push constant 0
+call Block.getCoord 2
+pop local 1
+push local 2
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 3
+push local 3
+push constant 0
+call Block.DrawTail 2
+pop temp 0
+push local 3
+call Block.dispose 1
+pop temp 0
+push local 2
+push static 0
+add
+push local 0
+push local 1
+call Block.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 2
+push constant 1
+sub
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 3
+push local 3
+push constant 0
+not
+call Block.getCoord 2
+pop local 0
+push local 3
+push constant 0
+call Block.getCoord 2
+pop local 1
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push constant 10
+sub
+pop local 0
+label IF_FALSE1
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 1
+push constant 10
+sub
+pop local 1
+label IF_FALSE2
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 0
+push constant 10
+add
+pop local 0
+label IF_FALSE3
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 1
+push constant 10
+add
+pop local 1
+label IF_FALSE4
+push local 3
+push local 0
+push local 1
+call Block.changeCoords 3
+pop temp 0
+push constant 0
+push static 0
+add
+push local 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+call Snake.drawSnake 1
+pop temp 0
+push pointer 0
+call Snake.checkBorder 1
+pop local 4
+push pointer 0
+call Snake.checkSelf 1
+pop local 5
+push local 4
+not
+push local 5
+not
+and
+return
+function Snake.drawSnake 1
+push argument 0
+pop pointer 0
+push constant 1
+pop local 0
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+call Block.DrawHead 2
+pop temp 0
+label WHILE_EXP0
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+push constant 0
+not
+call Block.DrawTail 2
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Snake.checkSelf 5
+push argument 0
+pop pointer 0
+push constant 1
+pop local 0
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 4
+push local 4
+push constant 0
+not
+call Block.getCoord 2
+pop local 1
+push local 4
+push constant 0
+call Block.getCoord 2
+pop local 2
+call Game.GetDirection 0
+pop local 3
+push local 3
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+push constant 10
+sub
+pop local 1
+label IF_FALSE0
+push local 3
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+push constant 10
+sub
+pop local 2
+label IF_FALSE1
+push local 3
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 1
+push constant 10
+add
+pop local 1
+label IF_FALSE2
+push local 3
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 2
+push constant 10
+add
+pop local 2
+label IF_FALSE3
+label WHILE_EXP0
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END0
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 4
+push local 1
+push local 4
+push constant 0
+not
+call Block.getCoord 2
+eq
+push local 2
+push local 4
+push constant 0
+call Block.getCoord 2
+eq
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 0
+not
+return
+label IF_FALSE4
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Snake.checkBorder 4
+push argument 0
+pop pointer 0
+call Game.GetBorders 0
+pop local 0
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+push constant 0
+not
+call Block.getCoord 2
+pop local 2
+push local 1
+push constant 0
+call Block.getCoord 2
+pop local 3
+push local 2
+push constant 0
+push local 0
+add
+pop pointer 1
+push that 0
+lt
+push local 2
+push constant 2
+push local 0
+add
+pop pointer 1
+push that 0
+gt
+or
+push local 3
+push constant 1
+push local 0
+add
+pop pointer 1
+push that 0
+lt
+or
+push local 3
+push constant 3
+push local 0
+add
+pop pointer 1
+push that 0
+gt
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Snake.checkFruit 6
+push argument 0
+pop pointer 0
+call Game.GetDirection 0
+pop local 4
+push constant 0
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 5
+push this 1
+push constant 0
+not
+call Fruit.getCoord 2
+pop local 0
+push this 1
+push constant 0
+call Fruit.getCoord 2
+pop local 1
+push local 5
+push constant 0
+not
+call Block.getCoord 2
+pop local 2
+push local 5
+push constant 0
+call Block.getCoord 2
+pop local 3
+push local 4
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+push constant 10
+sub
+pop local 2
+label IF_FALSE0
+push local 4
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 3
+push constant 10
+sub
+pop local 3
+label IF_FALSE1
+push local 4
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 2
+push constant 10
+add
+pop local 2
+label IF_FALSE2
+push local 4
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 3
+push constant 10
+add
+pop local 3
+label IF_FALSE3
+push local 0
+push local 2
+eq
+push local 1
+push local 3
+eq
+and
+return
+function Snake.eatFruit 4
+push argument 0
+pop pointer 0
+push static 1
+push constant 1
+add
+pop static 1
+push this 0
+push constant 1
+add
+pop this 0
+push this 0
+call Array.new 1
+pop local 0
+push constant 1
+pop local 1
+label WHILE_EXP0
+push local 1
+push this 0
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+add
+push local 1
+push constant 1
+sub
+push static 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push this 1
+push constant 0
+not
+call Fruit.getCoord 2
+pop local 2
+push this 1
+push constant 0
+call Fruit.getCoord 2
+pop local 3
+push constant 0
+push local 0
+add
+push local 2
+push local 3
+call Block.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+pop static 0
+push this 1
+call Fruit.dispose 1
+pop temp 0
+push this 0
+call Fruit.init 1
+pop this 1
+push constant 0
+return
+function Snake.GetArray 0
+push static 0
+return
+function Snake.GetScore 0
+push static 1
+return
+function Snake.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

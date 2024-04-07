@@ -1,0 +1,45 @@
+class Fruit {
+    field int X, Y;
+
+    constructor Fruit init(int length) {
+        var int x, y;
+        var Array borders, snake;
+        var int b1, b2, i;
+        var boolean flag;
+        var Block snk;
+        let borders = Game.GetBorders();
+        let x = 0;
+        let y = 0;
+        let flag = true;
+        let snake = Snake.GetArray();
+        
+        while(flag) {
+            let flag = false;
+            let x = Random.RandInt(borders[0] + 4, borders[2] - 4);
+            let y = Random.RandInt(borders[1] + 4, borders[3] - 4);
+            while(i < length) {
+                let snk = snake[i];
+                if((x = snk.getCoord(true)) & (y = snk.getCoord(false))) {
+                    let flag = true;
+                }
+                let i = i + 1;
+            }
+        }
+        do Block.DrawFruit(x + 4, y + 4, true);
+        let X = x;
+        let Y = y;
+        return this;
+    }
+
+    method int getCoord(boolean coord) {
+         if(coord) {
+            return X; 
+        }
+        return Y;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
